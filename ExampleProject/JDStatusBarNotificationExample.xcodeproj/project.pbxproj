@@ -333,11 +333,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53FFC4A835EA4347BBD86048 /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JDStatusBarNotificationExample/JDStatusBarNotificationExample-Prefix.pch";
 				INFOPLIST_FILE = "JDStatusBarNotificationExample/JDStatusBarNotificationExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -347,11 +349,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53FFC4A835EA4347BBD86048 /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JDStatusBarNotificationExample/JDStatusBarNotificationExample-Prefix.pch";
 				INFOPLIST_FILE = "JDStatusBarNotificationExample/JDStatusBarNotificationExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
