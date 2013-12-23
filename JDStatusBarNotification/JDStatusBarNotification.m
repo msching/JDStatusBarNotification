@@ -294,7 +294,7 @@ int CGFloat2int(CGFloat fValue)
     animated &= animationsEnabled;
     
     // animate out
-    [UIView animateWithDuration:animated ? 0.4 : 0.0 animations:^{
+    [UIView animateWithDuration:animated ? 0.4 : 0.0 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         if (self.activeStyle.animationType == JDStatusBarAnimationTypeFade) {
             self.topBar.alpha = 0.0;
         } else {
