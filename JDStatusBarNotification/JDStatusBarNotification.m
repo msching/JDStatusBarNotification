@@ -39,7 +39,7 @@
 @synthesize topBar = _topBar;
 
 #pragma mark Class methods
-int CGFloat2int(CGFloat fValue)
+int JDStatusBarCGFloat2int(CGFloat fValue)
 {
 	int ivalue = fValue;
 	CGFloat offset = fValue  - ivalue;
@@ -512,13 +512,13 @@ int CGFloat2int(CGFloat fValue)
     CGFloat xPos = 0;
     switch (self.activeStyle.barPosition){
         case JDStatusBarPositionCenter:
-            xPos = CGFloat2int((width - barWidth) / 2);
+            xPos = JDStatusBarCGFloat2int((width - barWidth) / 2);
             break;
         case JDStatusBarPositionLeft:
             xPos = 0;
             break;
         case JDStatusBarPositionRight:
-            xPos = CGFloat2int(width - barWidth);
+            xPos = JDStatusBarCGFloat2int(width - barWidth);
             break;
         default:
             break;
