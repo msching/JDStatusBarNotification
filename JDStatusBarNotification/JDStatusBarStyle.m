@@ -20,10 +20,13 @@ NSString *const JDStatusBarStyleDark    = @"JDStatusBarStyleDark";
 - (instancetype)copyWithZone:(NSZone*)zone;
 {
     JDStatusBarStyle *style = [[[self class] allocWithZone:zone] init];
+    style.barWidth = self.barWidth;
+    style.barPosition = self.barPosition;
     style.barColor = self.barColor;
     style.textColor = self.textColor;
     style.textShadow = self.textShadow;
     style.font = self.font;
+    style.adjustsFontSizeToFitWidth = self.adjustsFontSizeToFitWidth;
     style.textVerticalPositionAdjustment = self.textVerticalPositionAdjustment;
     style.animationType = self.animationType;
     style.progressBarColor = self.progressBarColor;
@@ -43,12 +46,15 @@ NSString *const JDStatusBarStyleDark    = @"JDStatusBarStyleDark";
 {
     // setup default style
     JDStatusBarStyle *style = [[JDStatusBarStyle alloc] init];
+    style.barWidth = [[UIScreen mainScreen] bounds].size.width;
+    style.barPosition = JDStatusBarPositionCenter;
     style.barColor = [UIColor whiteColor];
     style.progressBarColor = [UIColor greenColor];
     style.progressBarHeight = 1.0;
     style.progressBarPosition = JDStatusBarProgressBarPositionBottom;
     style.textColor = [UIColor grayColor];
     style.font = [UIFont systemFontOfSize:12.0];
+    style.adjustsFontSizeToFitWidth = YES;
     style.animationType = JDStatusBarAnimationTypeMove;
     
     // JDStatusBarStyleDefault

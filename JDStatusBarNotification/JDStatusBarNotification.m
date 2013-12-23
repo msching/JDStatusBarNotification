@@ -39,6 +39,16 @@
 @synthesize topBar = _topBar;
 
 #pragma mark Class methods
+int CGFloat2int(CGFloat fValue)
+{
+	int ivalue = fValue;
+	CGFloat offset = fValue  - ivalue;
+	if(offset > 0.5)
+	{
+		return ++ivalue;
+	}
+	return ivalue;
+}
 
 + (JDStatusBarNotification*)sharedInstance {
     static dispatch_once_t once;
@@ -175,6 +185,8 @@
 - (UIView*)showWithStatus:(NSString *)status
                 styleName:(NSString*)styleName;
 {
+    [self.dismissTimer invalidate];
+    self.dismissTimer = nil;
     JDStatusBarStyle *style = nil;
     if (styleName != nil) {
         style = self.userStyles[styleName];
@@ -208,7 +220,24 @@
     
     // update style
     self.topBar.backgroundColor = style.barColor;
+    self.topBar.adjustsFontSizeToFitWidth = style.adjustsFontSizeToFitWidth;
     self.topBar.textVerticalPositionAdjustment = style.textVerticalPositionAdjustment;
+    switch (self.activeStyle.barPosition){
+        case JDStatusBarPositionCenter:
+            self.topBar.textAlignment = NSTextAlignmentCenter;
+            break;
+        case JDStatusBarPositionLeft:
+            self.topBar.textAlignment = NSTextAlignmentLeft;
+            break;
+        case JDStatusBarPositionRight:
+            self.topBar.textAlignment = NSTextAlignmentRight;
+            break;
+        default:
+            self.topBar.textAlignment = NSTextAlignmentCenter;
+            break;
+    }
+    [self updateTopBarPositionWithStatusBarFrame:[[UIApplication sharedApplication] statusBarFrame]];
+    
     UILabel *textLabel = self.topBar.textLabel;
     textLabel.textColor = style.textColor;
     textLabel.font = style.font;
@@ -460,7 +489,6 @@
 
 - (void)updateTopBarFrameWithStatusBarFrame:(CGRect)rect;
 {
-    CGFloat width = MAX(rect.size.width, rect.size.height);
     CGFloat height = MIN(rect.size.width, rect.size.height);
 
     // on ios7 fix position, if statusBar has double height
@@ -468,8 +496,37 @@
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 && height > 20.0) {
         yPos = -height/2.0;
     }
+    CGRect frame = _topBar.frame;
+    frame.origin.y = yPos;
+    frame.size.height = height;
+    _topBar.frame = frame;
     
-    _topBar.frame = CGRectMake(0, yPos, width, height);
+    [self updateTopBarPositionWithStatusBarFrame:rect];
+}
+
+- (void)updateTopBarPositionWithStatusBarFrame:(CGRect)rect;
+{
+    CGFloat width = MAX(rect.size.width, rect.size.height);
+    
+    CGFloat barWidth = self.activeStyle.barWidth;
+    CGFloat xPos = 0;
+    switch (self.activeStyle.barPosition){
+        case JDStatusBarPositionCenter:
+            xPos = CGFloat2int((width - barWidth) / 2);
+            break;
+        case JDStatusBarPositionLeft:
+            xPos = 0;
+            break;
+        case JDStatusBarPositionRight:
+            xPos = CGFloat2int(width - barWidth);
+            break;
+        default:
+            break;
+    }
+    CGRect frame = _topBar.frame;
+    frame.origin.x = xPos;
+    frame.size.width = barWidth;
+    _topBar.frame = frame;
 }
 
 - (void)willChangeStatusBarFrame:(NSNotification*)notification;

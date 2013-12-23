@@ -12,4 +12,6 @@
 @property (nonatomic, strong, readonly) UILabel *textLabel;
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, assign) CGFloat textVerticalPositionAdjustment;
+@property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
+@property (nonatomic, assign) NSTextAlignment textAlignment;
 @end

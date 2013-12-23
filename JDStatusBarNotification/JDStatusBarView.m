@@ -24,7 +24,6 @@
 		_textLabel.backgroundColor = [UIColor clearColor];
 		_textLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
         _textLabel.textAlignment = NSTextAlignmentCenter;
-		_textLabel.adjustsFontSizeToFitWidth = YES;
         _textLabel.clipsToBounds = YES;
         [self addSubview:_textLabel];
     }
@@ -49,6 +48,26 @@
     [self setNeedsLayout];
 }
 
+- (void)setAdjustsFontSizeToFitWidth:(BOOL)adjustsFontSizeToFitWidth
+{
+    self.textLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth;
+}
+
+- (BOOL)adjustsFontSizeToFitWidth
+{
+    return self.textLabel.adjustsFontSizeToFitWidth;
+}
+
+- (void)setTextAlignment:(NSTextAlignment)textAlignment
+{
+    self.textLabel.textAlignment = textAlignment;
+}
+
+- (NSTextAlignment)textAlignment
+{
+    return _textLabel.textAlignment;
+}
+
 #pragma mark layout
 
 - (void)layoutSubviews;
@@ -56,8 +75,8 @@
     [super layoutSubviews];
     
     // label
-    self.textLabel.frame = CGRectMake(0, 1+self.textVerticalPositionAdjustment,
-                                      self.bounds.size.width, self.bounds.size.height-1);
+    self.textLabel.frame = CGRectMake(5, 1+self.textVerticalPositionAdjustment,
+                                      self.bounds.size.width - 10, self.bounds.size.height-1);
     
     // activity indicator
     if (_activityIndicatorView ) {

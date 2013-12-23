@@ -30,10 +30,22 @@ typedef NS_ENUM(NSInteger, JDStatusBarProgressBarPosition) {
     JDStatusBarProgressBarPositionNavBar, /// progress bar will be below the navigation bar (the prograss bar won't move with the statusbar in this case)
 };
 
+typedef NS_ENUM(NSInteger, JDStatusBarPosition) {
+    JDStatusBarPositionCenter,   /// bar will be at the center of the status bar
+    JDStatusBarPositionLeft,     /// bar will be at the left of the status bar
+    JDStatusBarPositionRight,    /// bar will be at the right of the status bar
+};
+
 /**
  *  A Style defines the appeareance of a notification.
  */
 @interface JDStatusBarStyle : NSObject <NSCopying>
+
+/// The width of the notification bar
+@property (nonatomic, assign) CGFloat barWidth;
+
+/// The position of the bar. Default is JDStatusBarPositionCenter
+@property (nonatomic, assign) JDStatusBarPosition barPosition;
 
 /// The background color of the notification bar
 @property (nonatomic, strong) UIColor *barColor;
@@ -46,6 +58,9 @@ typedef NS_ENUM(NSInteger, JDStatusBarProgressBarPosition) {
 
 /// The font of the notification label
 @property (nonatomic, strong) UIFont *font;
+
+// allow the notification label to be autosized to fit a certain width by scaling the font size. default is YES
+@property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 
 /// A correction of the vertical label position in points. Default is 0.0
 @property (nonatomic, assign) CGFloat textVerticalPositionAdjustment;
